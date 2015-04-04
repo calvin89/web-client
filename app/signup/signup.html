@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp.signup">
+
+
+  <body class="container" ng-controller="SignupCtrl as registration">
+    <h3>{{ registration.message }}</h3> 
+    <form class="registerForm" name="registrationForm" novalidate 
+          ng-submit="submit(registrationForm.$valid)">
+
+              <div style="text-align:center;">
+              <h1>Registration</h1>
+              <br>
+              </div>
+
+       <div class="form-group">
+            <label>User Name</label>
+            <input type="text" name="username" class="form-control" ng-model="user.username" required minlength="5" />
+            <div ng-messages="registrationForm.username.$error" style="color:maroon">
+                <div ng-message="required">Required</div>
+                <div ng-message="minlength">Your field is too short</div>
+                <div ng-message="maxlength">Your field is too long</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" ng-model="user.password" required />
+            <div ng-messages="registrationForm.password.$error" style="color:maroon">
+              <div ng-message="required">Required</div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" name="confirmPassword" class="form-control" 
+                   ng-model="user.confirmPassword"
+
+                    ng-change="compareTo()" required />
+
+            <div ng-messages="registrationForm.confirmPassword.$error" style="color:maroon">
+              <div ng-message="required">Required</div>
+              <div ng-message="compare-to">Your password doesn't match</div>
+
+              <!-- <pre>registrationForm.confirmPassword.$error = {{ registrationForm.confirmPassword.$error | json }}</pre> -->
+            </div>
+        </div>
+        <div class="form-group submitBtn">
+            <button type="submit" class="btn btn-primary">Register!</button>
+        </div>
+
+    <!-- <pre>registrationForm.username.$error = {{ registrationForm.username.$error | json }}</pre> -->
+
+    </form> 
+  </body>
+
+</html>
