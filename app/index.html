@@ -2,11 +2,12 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> 
+<html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>Peeracle</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
@@ -15,19 +16,18 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/js/bootstrap.min.js">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="signin/signin.css">
-  <link rel="stylesheet" href="signup/signup.css">
-
-  <link rel="stylesheet" href="signin/iDialog-master/src/style.css">
+  <link rel="stylesheet" href="css/video-list.css">
+  <link rel="stylesheet" href="css/signin.css">
+  <link rel="stylesheet" href="css/signup.css">
 
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bootstrap-3.3.2-dist/js/bootstrap.js"></script>
 </head>
-<body ng-controller="TrendVideosCtrl">
+<body class="home-body">
 
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -36,56 +36,53 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar-brand" href="#">
+        <a href="#/" class="navbar-brand" href="#">
           <img src="images/logo.png" alt="" style="">
         </a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-     
+
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#/"> <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Item 1</a></li>
               <li><a href="#">Item 2</a></li>
               <li><a href="#">Item 3</a></li>
             </ul>
           </li>
-       
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-          <!-- <li><a href="#/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
+
+          <span ng-if="1==2">
+
+          </span>
+
+          <li><a href="#/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
 
-                    <ng-include src="'signin/signin.html'">
+          <!-- LOGIN MODAL -->
+          <!-- <ng-include src="'signin/signin.html'"> -->
 
-          </ng-include>
+          <!-- </ng-include> -->
 
 
         </ul>
-  <div class="col-sm-3 col-md-6 pull-left">
-              <form class="navbar-form" role="search">
-                  <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Search" name="q" size="100">
-                      <div class="input-group-btn">
-                          <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                      </div>
-                  </div>
-              </form>
-          </div> 
+        <div class="col-sm-3 col-md-6 pull-left search-box">
+          <form class="navbar-form" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="q" size="100">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div> 
       </div>
     </div>
   </nav>
-
-  <div class="row">
-
-            <div ng-repeat="video in trendVideos" class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#">
-                    <video src="{{video.url}}" style="width: 270px; height: 180px; background-color: black;" onmouseover="this.play();" onmouseout="this.pause();" loop/>
-                </a>
-            </div>
-  </div>
 
 <!--   <ul class="menu">
     <li><a href="#/view1">view1</a></li>
@@ -94,27 +91,40 @@
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+      <![endif]-->
 
-  <div ng-view></div>
+      <div ng-view></div>
 
-  <!-- <div style="text-align:center">Angular seed app: v<span app-version></span></div> -->
+      <!-- <div style="text-align:center">Angular seed app: v<span app-version></span></div> -->
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
-  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-  <script src="signin/signin.js"></script>
-  <script src="signup/signup.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
-  <script src="app.js"></script>
-</body>
+-->
 
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="http://code.angularjs.org/1.0.0rc10/angular-cookies-1.0.0rc10.js"></script>
+<script src="bower_components/angular-loader/angular-loader.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/videogular/videogular.js"></script>
+<script src="bower_components/videogular-controls/vg-controls.js"></script>
+<script src="bower_components/videogular-overlay-play/vg-overlay-play.js"></script>
+<script src="bower_components/videogular-poster/vg-poster.js"></script>
+<script src="bower_components/videogular-buffering/vg-buffering.js"></script>
+
+<script src="directives/passwordMatching.directive.js"></script>
+<script src="services/authService.js"></script>
+
+<script src="controllers/signin.controller.js"></script>
+<script src="controllers/signup.controller.js"></script>
+<script src="controllers/video-list.controller.js"></script>
+<script src="controllers/video-detail.controller.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+<script src="app.js"></script>
+</body>
 </html>

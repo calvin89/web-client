@@ -1,0 +1,36 @@
+<body ng-controller="VideoListCtrl">
+<!--     <div class="row">
+
+            <div ng-repeat="video in videos" class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#/videos/{{video.id}}">
+                    <video src="{{video.url}}" style="width: 270px; height: 180px; background-color: black;" onmouseover="this.play();" onmouseout="this.pause();" loop/>
+
+                    		            <div class="videoInfo">
+		            <p style="text-align:left;">
+		            	{{video.views}} views
+						<span style="float:right;"> {{video.length}} </span>
+					</p>
+					</div>
+                </a>
+            </div>
+    </div> -->
+
+<div class="container video-list-body">
+
+	<ul class="list-unstyled video-list-thumbs row">
+		<li ng-repeat="video in videos" class="col-lg-3 col-sm-4 col-xs-6">
+			<a href="#/videos/{{video.id}}"title="Claudio Bravo, antes su debut con el Barça en la Liga">
+				<video src="{{video.url}}" style="width: 240px; height: 150px; background-color: black;" onmouseover="this.play();" onmouseout="this.pause();" loop/>
+				<p class="bottomInfo" style="text-align:left">{{video.views}} views
+					<span style="float:right">
+						{{video.length}}
+					</span>
+				</p>
+				<span class="glyphicon glyphicon-play-circle"></span>
+				<span class="title">video {{video.id}}</span>
+			</a>
+		</li>
+	</ul>
+
+</div>
+</body>
