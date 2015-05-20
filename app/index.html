@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
   <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/js/bootstrap.min.js">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
   <link rel="stylesheet" href="css/video-list.css">
@@ -23,11 +22,12 @@
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bootstrap-3.3.2-dist/js/bootstrap.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
 </head>
-<body class="home-body">
+<body class="home-body" ng-controller="ProfileCtrl">
 
-  <nav class="navbar-inverse">
+  <nav class="navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -40,7 +40,7 @@
           <img src="images/logo.png" alt="" style="">
         </a>
       </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
 
           <li class="dropdown">
@@ -53,23 +53,7 @@
           </li>
 
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
 
-          <span ng-if="1==2">
-
-          </span>
-
-          <li><a href="#/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-
-
-          <!-- LOGIN MODAL -->
-          <!-- <ng-include src="'signin/signin.html'"> -->
-
-          <!-- </ng-include> -->
-
-
-        </ul>
         <div class="col-sm-3 col-md-6 pull-left search-box">
           <form class="navbar-form" role="search">
             <div class="input-group">
@@ -80,33 +64,34 @@
             </div>
           </form>
         </div> 
+        <ul class="nav navbar-nav navbar-right" ng-cloak>
+          <li ng-show="!cookies.userStatus"><a href="#/signin"><button class="btn btn-primary btn-sm" id="pr-login-btn"> Login </button></a></li>
+<!--           <li ><a href="" ng-click='logout()'><span class="glyphicon glyphicon-log-in"></span> Logout ({{auth.username}})</a></li> -->
+
+          <li class="dropdown" ng-show="cookies.userStatus">
+            <a class="dropdown-toggle pr-avatar" data-toggle="dropdown" href="" > <img alt="" src="images/avatar.jpg"> <span class="">{{auth.username}}</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Profile</a></li>
+              <li><a href="" ng-click='logout()'>Log out </a></li>
+            </ul>
+          </li>
+          <!-- LOGIN MODAL -->
+          <!-- <ng-include src="'signin/signin.html'"> -->
+          <!-- </ng-include> -->
+        </ul>
       </div>
     </div>
   </nav>
 
-<!--   <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul> -->
+  <div ng-view></div>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-      <![endif]-->
-
-      <div ng-view></div>
-
-      <!-- <div style="text-align:center">Angular seed app: v<span app-version></span></div> -->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
--->
-
-<script src="bower_components/angular/angular.js"></script>
+<!-- <script src="bower_components/angular-cookies/angular-cookies.min.js"></script> -->
 <script src="bower_components/angular-route/angular-route.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/angular-messages/angular-messages.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="http://code.angularjs.org/1.0.0rc10/angular-cookies-1.0.0rc10.js"></script>
+<!--<script src="http://code.angularjs.org/1.0.0rc10/angular-cookies-1.0.0rc10.js"></script>-->
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="bower_components/angular-loader/angular-loader.min.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 <script src="bower_components/videogular/videogular.js"></script>

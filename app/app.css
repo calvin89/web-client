@@ -2,6 +2,7 @@
 
 .home-body {
   background-color: #e9eaed;
+  margin-top: 70px;
 }
 .menu {
   list-style: none;
@@ -43,4 +44,25 @@
 
 .search-box {
   margin-left: 18%;
+}
+
+#pr-login-btn {
+  margin: -10px 0px -8px 0px;
+}
+
+#pr-login-btn:focus {
+  outline: none;
+}
+
+.pr-avatar img {
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-bottom: -13px;
+    max-width: 100px;
+    max-height: 100px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
 }

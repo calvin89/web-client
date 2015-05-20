@@ -1,38 +1,80 @@
 'use strict';
 
-angular.module('myApp.signin', [])
+var myApp = angular.module('myApp.signin', [])
 
-.controller('SigninCtrl', ['$scope', '$http', '$log', "$location", '$cookies', '$cookieStore', 'userService', function ($scope, $http, $log, $location, $cookies, $cookieStore, userService) {
+function url_base64_decode(str) {
+  var output = str.replace('-', '+').replace('_', '/');
+  switch (output.length % 4) {
+    case 0:
+      break;
+    case 2:
+      output += '==';
+      break;
+    case 3:
+      output += '=';
+      break;
+    default:
+      throw 'Illegal base64url string!';
+  }
+  return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
+}
 
-  $http.get('/app/jsons/users.json')
-  .success(function(data) {
-    $scope.users = data;
-   })
+myApp.controller('SigninCtrl', ['$scope', '$http', '$log', "$location", '$cookies', '$cookieStore', '$rootScope', '$window', '$route', 'userService', function ($scope, $http, $log, $location, $cookies, $cookieStore, $rootScope, $window, $route, userService) {
+
+  // $http.get('/app/jsons/users.json')
+  // .success(function(data) {
+  //   $scope.users = data;
+  //  })
 
   $scope.submit = function() {
-      for(var i=0; i < $scope.users.length; i++) {
-        if ($scope.users[i].username == $scope.user.username &&
-            $scope.users[i].password == $scope.user.password) {
-          $cookieStore.put("loggedIn", 'true');
-          $location.path('#');
+      $http
+      .post('http://127.0.0.1:8080/authenticate', $scope.user)
+      .success(function (data, status, headers, config) {
+        $window.sessionStorage.token = data.token;
+        var encodedProfile = data.token.split('.')[1];
+        var profile = JSON.parse(url_base64_decode(encodedProfile));
+        $scope.welcome = 'Welcome ' + profile.first_name + ' ' + profile.last_name;
 
-          userService.set(true, $scope.user.username);
-          // userService.username = $scope.user.username;
-          alert("Hi " + userService.get().username + "!");
-          break;
-        }
-        if (i == $scope.users.length - 1) {
-          userService.isLogged = false;
-          userService.username = '';
-          alert("Wrong username or password!");
-        }
-      }
+        $rootScope.auth.username = profile.first_name;
+        $cookies['USERSTATUS'] = true;
+        $rootScope.auth.isAuthenticated = true;
+        $window.location.reload();
+        $location.path('#');
+      })
+      .error(function (data, status, headers, config) {
+          // Erase the token if the user fails to log in
+          delete $window.sessionStorage.token;
+          $scope.auth.isAuthenticated = false;
+
+          // Handle login errors here
+          alert("Error: Invalid user or password")
+          // $scope.error = 'Error: Invalid user or password';
+          $scope.welcome = '';
+        });
     };
 }])
-  // $scope.submit = function() {
-  // $scope.items = ['item1', 'item2', 'item3'];
-  // $scope.master = {};
 
+myApp.factory('authInterceptor', function ($rootScope, $q, $window) {
+  return {
+    request: function (config) {
+      config.headers = config.headers || {};
+      if ($window.sessionStorage.token) {
+        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+      }
+      return config;
+    },
+    responseError: function (rejection) {
+      if (rejection.status === 401) {
+        // handle the case where the user is not authenticated
+      }
+      return $q.reject(rejection);
+    }
+  };
+});
+
+myApp.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('authInterceptor');
+});
 
 
   // $scope.open = function (size) {

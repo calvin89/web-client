@@ -29,7 +29,7 @@ function($routeProvider) {
       templateUrl: 'views/video-list.view.html',
       controller: 'VideoListCtrl',
     }).
-  when('/videos/:videoId', {
+  when('/video/:videoId', {
       templateUrl: 'views/video-detail.view.html',
       controller: 'VideoDetailCtrl'
     }).
@@ -44,10 +44,31 @@ function($routeProvider) {
   otherwise({redirectTo: '/'});
 }])
 
-// .controller('LoginCtrl', ['$cookies', 'userService', '$cookieStore', function ($scope, $cookies, userService, $cookieStore ) {
-//   // $scope.isUserLogged = userService.get().username;
-//   $scope.isUserLogged = $cookies['loggedIn'];
-// }])
+.run(function($rootScope) {
+  $rootScope.auth = {};
+  $rootScope.auth.username = '';
+  $rootScope.auth.isAuthenticated = false;
+})
+
+.controller('ProfileCtrl', ['$scope', '$cookies', 'userService', '$cookieStore', '$rootScope', '$route', function ($scope, $cookies, userService, $cookieStore, $rootScope, $route) {
+  // $scope.isAuthenticated = $rootScope.isAuthenticated;
+  $scope.auth.username = $rootScope.auth.username;
+  // $scope.isUserLogged = $cookies['loggedIn'];
+
+    $scope.cookies = {};
+    $scope.cookies.userStatus = $cookies['USERSTATUS'];
+
+    $scope.logout = function () {
+    $scope.welcome = '';
+    $scope.message = '';
+    delete $cookies['USERSTATUS'];
+    delete $scope.cookies.userStatus;
+    $scope.cookies.userStatus = undefined;
+    $rootScope.auth.isAuthenticated = false;
+    $rootScope.auth.username = '';
+    $route.reload();
+  };
+}])
 
 // .controller('VideosCtrl', function ($scope, $http) {
 //   $http.get('videos/videos.json').success(function(data) {

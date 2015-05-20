@@ -8,14 +8,15 @@ angular.module('myApp.authService', [])
   //   username: ''
   // };
   var user = {};
-  user.isLogged = false;
-  user.isLogged = '';
+  var isLogged = false;
+  var username = '';
 
-  this.set = function(isLogged, username) {
-  	user.isLogged = isLogged;
-  	user.username = username;
+  user.set = function(isLogged, userName) {
+  	isLogged = isLogged;
+  	username = userName;
   }
-  this.get = function() {
-  	return user;
+  user.get = function() {
+    return username;
   }
+  return user;
 }]);
